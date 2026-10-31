@@ -28,7 +28,7 @@ const container = document.querySelector('div');
 
 const root = ReactDOM.createRoot(container);
 
-const invoices: Invoice[] = [{
+const invoices = [{
     id: 1,
     amount: 125037,
     status: 'pending',
@@ -63,17 +63,21 @@ const invoices: Invoice[] = [{
   }
 }];
 
+function statusLabel() {
+
+}
+
 const InvoiceTitle = () => {
     return <h1>Faturas</h1>;
     };
 
-    const InvoiceRow = () => {
+    const InvoiceRow = (props) => {
         return <tr>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
+            <td>{props.data.customer.name}</td>
+            <td>{props.data.amount}</td>
+            <td>{props.data.issueDate}</td>
+            <td>{props.data.dueDate}</td>
+            <td>{props.data.status === 'paid' ? 'paga': 'pendente'}</td>
             </tr>;
     };
 
@@ -89,11 +93,9 @@ const InvoiceTitle = () => {
             </tr>
         </thead>
         <tbody>
-            <InvoiceRow/>
-            <InvoiceRow/>
-            <InvoiceRow/>
+           {invoices.map(invoice => <InvoiceRow data= {invoice} />)}
         </tbody>
-    </table>
+    </table>;
     };
 
     const App = () => {
